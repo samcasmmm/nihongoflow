@@ -4,7 +4,7 @@ MVP column: ✅ = build now, 🟡 = build if time allows, ⏳ = later phase.
 
 ---
 
-## 1. Auth & Onboarding
+## 1. Auth & Onboarding ✅ [DONE]
 | Feature | MVP | Notes |
 |---|---|---|
 | Email register + password | ✅ | bcrypt/argon2 |
@@ -17,7 +17,7 @@ MVP column: ✅ = build now, 🟡 = build if time allows, ⏳ = later phase.
 **Endpoints:** `/auth/register`, `/auth/login`, `/auth/verify`, `/auth/reset`
 **Entities:** `users`
 
-## 2. Placement
+## 2. Placement ✅ [DONE]
 | Feature | MVP | Notes |
 |---|---|---|
 | 5–8 question quiz | ✅ | prior study, kana ability, basic MCQs |
@@ -29,7 +29,7 @@ MVP column: ✅ = build now, 🟡 = build if time allows, ⏳ = later phase.
 **Endpoints:** `/placement/questions`, `/placement/submit`
 **Entities:** `profiles`
 
-## 3. Dashboard
+## 3. Dashboard ✅ [DONE]
 | Feature | MVP | Notes |
 |---|---|---|
 | 5 entry cards (Hiragana, Vocab, Grammar, Start Learning, Tests) | ✅ | |
@@ -39,7 +39,7 @@ MVP column: ✅ = build now, 🟡 = build if time allows, ⏳ = later phase.
 
 **Endpoints:** `/lessons`, `/gamification/summary`
 
-## 4. Hiragana Flashcards
+## 4. Hiragana Flashcards ✅ [DONE]
 | Feature | MVP | Notes |
 |---|---|---|
 | 46 base char deck | ✅ | |

@@ -16,7 +16,7 @@ export default async function TermsPage() {
     <div className='min-h-screen bg-(--bg) text-(--text) flex flex-col'>
       <SiteHeader session={session} />
 
-      <main className='flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16'>
+      <main className='flex-1 w-full max-w-[92%] lg:max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8 py-16'>
         {/* Header */}
         <div className='space-y-4 mb-12'>
           <div className='inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#181826] border border-[#1cb0f6]/30 text-[#1cb0f6] text-xs font-bold'>

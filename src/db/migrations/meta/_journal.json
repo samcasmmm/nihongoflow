@@ -8,6 +8,13 @@
       "when": 1790497270745,
       "tag": "0000_large_sentinels",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790501373724,
+      "tag": "0001_solid_golden_guardian",
+      "breakpoints": true
     }
   ]
 }

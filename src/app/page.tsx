@@ -47,11 +47,6 @@ export default async function HomePage() {
           <span className='absolute bottom-32 right-1/4 text-8xl font-display font-extrabold text-white/2'>学</span>
         </div>
 
-        {/* Layer 4: 3 Realistically Staggered Meteors */}
-        <div className='meteor top-6 right-20' style={{ animationDelay: '0s' }} />
-        <div className='meteor top-24 right-1/3' style={{ animationDelay: '1.7s' }} />
-        <div className='meteor top-40 right-12' style={{ animationDelay: '3.4s' }} />
-
         <div className='w-full max-w-[92%] lg:max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24 text-center relative z-10'>
           {/* Mascot Tag */}
           <div className='inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#181826] border border-white/10 text-white text-xs font-bold mb-6 shadow-md'>
