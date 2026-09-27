@@ -304,7 +304,7 @@ export function VocabularyDeck({ initialCards, initialStats }: Props) {
       </div>
 
       {/* Leitner Box Distribution Stats Bar */}
-      <div className="bento p-3 bg-white/[0.02] border-white/5">
+      <div className="bento p-3 bg-white/2 border-white/5">
         <div className="flex items-center justify-between text-xs text-[#9a9aa8] mb-2 font-mono">
           <div className="flex items-center gap-1.5">
             <Layers className="w-3.5 h-3.5 text-[#1cb0f6]" />
@@ -361,11 +361,11 @@ export function VocabularyDeck({ initialCards, initialStats }: Props) {
           {/* 3D Tactile Card Container */}
           <div
             onClick={handleFlip}
-            className="cursor-pointer perspective-1000 select-none group min-h-[360px] sm:min-h-[400px] w-full"
+            className="cursor-pointer perspective-1000 select-none group min-h-90 sm:min-h-100 w-full"
             style={{ perspective: "1200px" }}
           >
             <div
-              className={`relative w-full h-full min-h-[360px] sm:min-h-[400px] transition-transform duration-500 rounded-3xl border border-white/10 shadow-2xl p-8 flex flex-col justify-between ${
+              className={`relative w-full h-full min-h-90 sm:min-h-100 transition-transform duration-500 rounded-3xl border border-white/10 shadow-2xl p-8 flex flex-col justify-between ${
                 isFlipped ? "bg-[#181a24] border-[#1cb0f6]/40" : "bg-[#14161f] border-white/10"
               }`}
               style={{

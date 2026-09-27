@@ -1,3 +1,6 @@
+import * as dotenv from "dotenv";
+dotenv.config({ path: ".env" });
+
 import { db } from "./client";
 import {
   lessons,
@@ -17,9 +20,6 @@ import { SENTENCE_DATA } from "./seeds/sentence-data";
 import { USERS_DATA } from "./seeds/users-data";
 import bcrypt from "bcryptjs";
 import { eq } from "drizzle-orm";
-import * as dotenv from "dotenv";
-
-dotenv.config({ path: ".env" });
 
 export async function runSeed() {
   console.log("🌱 Seeding NihongoFlow curriculum & kana decks...");
