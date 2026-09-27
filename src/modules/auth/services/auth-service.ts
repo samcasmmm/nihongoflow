@@ -28,6 +28,7 @@ export class AuthService {
       email: user.email,
       name: user.name,
       emailVerified: user.emailVerified,
+      role: user.role,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     };
@@ -70,6 +71,7 @@ export class AuthService {
       email: user.email,
       name: user.name,
       emailVerified: true,
+      role: user.role,
     });
 
     return {
@@ -105,6 +107,7 @@ export class AuthService {
       email: user.email,
       name: user.name,
       emailVerified: user.emailVerified,
+      role: user.role,
     });
 
     return {

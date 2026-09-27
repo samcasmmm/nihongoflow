@@ -279,7 +279,7 @@ export function LessonStepper({
               ? "bg-[#58cc02]/15 border-[#58cc02] shadow-lg shadow-[#58cc02]/10"
               : progressState.vocabCompleted
               ? "bg-white/5 border-[#58cc02]/40 text-[#58cc02]"
-              : "bg-white/[0.02] border-white/10 text-[#9a9aa8]"
+              : "bg-white/2 border-white/10 text-[#9a9aa8]"
           }`}
         >
           <div className="flex items-center justify-between text-xs font-bold">
@@ -302,7 +302,7 @@ export function LessonStepper({
               ? "bg-[#ce82ff]/15 border-[#ce82ff] shadow-lg shadow-[#ce82ff]/10"
               : progressState.grammarCompleted
               ? "bg-white/5 border-[#ce82ff]/40 text-[#ce82ff]"
-              : "bg-white/[0.02] border-white/10 text-[#9a9aa8]"
+              : "bg-white/2 border-white/10 text-[#9a9aa8]"
           }`}
         >
           <div className="flex items-center justify-between text-xs font-bold">
@@ -330,7 +330,7 @@ export function LessonStepper({
               ? "bg-[#1cb0f6]/15 border-[#1cb0f6] shadow-lg shadow-[#1cb0f6]/10"
               : progressState.practiceCompleted
               ? "bg-white/5 border-[#1cb0f6]/40 text-[#1cb0f6]"
-              : "bg-white/[0.02] border-white/10 text-[#9a9aa8]"
+              : "bg-white/2 border-white/10 text-[#9a9aa8]"
           }`}
         >
           <div className="flex items-center justify-between text-xs font-bold">

@@ -72,6 +72,8 @@ interface StudioItemData {
   keywordSlots?: string[];
   allowedVocabLessonMax?: number;
   hint?: string | null;
+  createdAt?: Date;
+  updatedAt?: Date;
   [key: string]: unknown;
 }
 

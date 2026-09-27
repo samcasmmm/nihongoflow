@@ -7,6 +7,7 @@ export interface SessionPayload {
   email: string;
   name?: string | null;
   emailVerified: boolean;
+  role?: string;
   expiresAt?: number;
 }
 

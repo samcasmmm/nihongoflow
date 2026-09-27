@@ -178,7 +178,7 @@ export default async function DashboardPage() {
             <div className="space-y-1.5">
               <div className="w-full bg-[#1e2029] h-2 rounded-full overflow-hidden border border-white/5">
                 <div
-                  className="bg-gradient-to-r from-[#ce82ff] to-[#a855f7] h-full rounded-full transition-all duration-500"
+                  className="bg-linear-to-r from-[#ce82ff] to-[#a855f7] h-full rounded-full transition-all duration-500"
                   style={{ width: `${summary.levelProgressPercent}%` }}
                 />
               </div>
@@ -223,7 +223,7 @@ export default async function DashboardPage() {
             <div className="space-y-1.5">
               <div className="w-full bg-[#1e2029] h-2 rounded-full overflow-hidden border border-white/5">
                 <div
-                  className="bg-gradient-to-r from-[#58cc02] to-[#46a302] h-full rounded-full transition-all duration-500"
+                  className="bg-linear-to-r from-[#58cc02] to-[#46a302] h-full rounded-full transition-all duration-500"
                   style={{
                     width: `${Math.min(
                       100,
@@ -489,7 +489,7 @@ export default async function DashboardPage() {
           </div>
 
           {/* Quick Curriculum Roadmap Info Box */}
-          <div className="bento p-6 flex flex-col justify-between border-dashed border-white/10 bg-white/[0.01]">
+          <div className="bento p-6 flex flex-col justify-between border-dashed border-white/10 bg-white/1">
             <div className="space-y-3">
               <div className="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center text-white">
                 <BookOpen className="w-5 h-5 text-[#58cc02]" />
@@ -548,7 +548,7 @@ export default async function DashboardPage() {
                 <div className="space-y-1.5 pt-1">
                   <div className="w-full bg-[#1e2029] h-2 rounded-full overflow-hidden border border-white/5">
                     <div
-                      className="bg-gradient-to-r from-[#1cb0f6] to-[#0284c7] h-full rounded-full transition-all duration-500"
+                      className="bg-linear-to-r from-[#1cb0f6] to-[#0284c7] h-full rounded-full transition-all duration-500"
                       style={{ width: `${mission.progressPercent}%` }}
                     />
                   </div>

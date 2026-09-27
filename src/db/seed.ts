@@ -1,10 +1,22 @@
 import { db } from "./client";
-import { lessons, kanaChars, vocabItems, grammarPatterns, sentenceItems } from "./schema";
+import {
+  lessons,
+  kanaChars,
+  vocabItems,
+  grammarPatterns,
+  sentenceItems,
+  users,
+  profiles,
+  gamificationState,
+} from "./schema";
 import { LESSON_DATA } from "./seeds/lessons-data";
 import { KANA_DATA } from "./seeds/kana-data";
 import { VOCAB_DATA } from "./seeds/vocab-data";
 import { GRAMMAR_DATA } from "./seeds/grammar-data";
 import { SENTENCE_DATA } from "./seeds/sentence-data";
+import { USERS_DATA } from "./seeds/users-data";
+import bcrypt from "bcryptjs";
+import { eq } from "drizzle-orm";
 import * as dotenv from "dotenv";
 
 dotenv.config({ path: ".env" });
@@ -100,6 +112,87 @@ export async function runSeed() {
     }
   }
   console.log(`✓ Seeded ${SENTENCE_DATA.length} cumulative practice sentence drills.`);
+
+  // 6. Seed Users (Admin & Standard Users)
+  console.log("👤 Seeding authenticated users (Admin/CMS + Standard Learners)...");
+  for (const userSeed of USERS_DATA) {
+    const passwordHash = await bcrypt.hash(userSeed.passwordPlain, 10);
+
+    const existingUser = await db.query.users.findFirst({
+      where: (table, { eq }) => eq(table.email, userSeed.email.toLowerCase()),
+    });
+
+    let userId: string;
+
+    if (existingUser) {
+      userId = existingUser.id;
+      await db
+        .update(users)
+        .set({
+          name: userSeed.name,
+          role: userSeed.role,
+          passwordHash,
+          emailVerified: true,
+        })
+        .where(eq(users.id, userId));
+    } else {
+      const [inserted] = await db
+        .insert(users)
+        .values({
+          email: userSeed.email.toLowerCase(),
+          name: userSeed.name,
+          role: userSeed.role,
+          passwordHash,
+          emailVerified: true,
+        })
+        .returning();
+      userId = inserted.id;
+    }
+
+    // Profile
+    const existingProfile = await db.query.profiles.findFirst({
+      where: (table, { eq }) => eq(table.userId, userId),
+    });
+
+    if (existingProfile) {
+      await db
+        .update(profiles)
+        .set({
+          startingLesson: userSeed.startingLesson,
+          levelLabel: userSeed.levelLabel,
+          dailyGoalXp: userSeed.dailyGoalXp,
+        })
+        .where(eq(profiles.userId, userId));
+    } else {
+      await db.insert(profiles).values({
+        userId,
+        startingLesson: userSeed.startingLesson,
+        levelLabel: userSeed.levelLabel,
+        dailyGoalXp: userSeed.dailyGoalXp,
+      });
+    }
+
+    // Gamification state
+    const existingGamification = await db.query.gamificationState.findFirst({
+      where: (table, { eq }) => eq(table.userId, userId),
+    });
+
+    const initialXp = userSeed.role === "admin" ? 150 : userSeed.email === "sameer@mail.com" ? 45 : 20;
+    const initialStreak = userSeed.role === "admin" ? 5 : 2;
+
+    if (!existingGamification) {
+      await db.insert(gamificationState).values({
+        userId,
+        totalXp: initialXp,
+        currentStreak: initialStreak,
+        longestStreak: initialStreak,
+        streakFreezesAvailable: 2,
+        dailyGoalXp: userSeed.dailyGoalXp,
+      });
+    }
+  }
+  console.log(`✓ Seeded ${USERS_DATA.length} users with profiles & gamification states:`);
+  USERS_DATA.forEach((u) => console.log(`   - [${u.role.toUpperCase()}] ${u.email} (${u.name})`));
   console.log("✨ Seeding completed successfully!");
 }
 
