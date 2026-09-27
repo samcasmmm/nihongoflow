@@ -53,7 +53,7 @@ MVP column: ✅ = build now, 🟡 = build if time allows, ⏳ = later phase.
 **Endpoints:** `/decks/hiragana`, `/cards/:id/progress`
 **Entities:** `KanaChar`, `card_progress`
 
-## 5. Vocabulary Flashcards
+## 5. Vocabulary Flashcards ✅ [DONE]
 | Feature | MVP | Notes |
 |---|---|---|
 | Filter by lesson / "up to lesson N" | ✅ | |
@@ -64,7 +64,7 @@ MVP column: ✅ = build now, 🟡 = build if time allows, ⏳ = later phase.
 **Endpoints:** `/vocab?lesson=&upTo=`, `/cards/:id/progress`
 **Entities:** `VocabItem`, `card_progress`
 
-## 6. Grammar Patterns
+## 6. Grammar Patterns ✅ [DONE]
 | Feature | MVP | Notes |
 |---|---|---|
 | List grouped by lesson | ✅ | |
@@ -74,7 +74,7 @@ MVP column: ✅ = build now, 🟡 = build if time allows, ⏳ = later phase.
 **Endpoints:** `/grammar?lesson=`
 **Entities:** `GrammarPattern`
 
-## 7. Lesson Flow ("Start Learning")
+## 7. Lesson Flow ("Start Learning") ✅ [DONE]
 | Feature | MVP | Notes |
 |---|---|---|
 | 3-stage stepper (Vocab → Grammar → Practice) | ✅ | progress saved per stage |
@@ -85,7 +85,7 @@ MVP column: ✅ = build now, 🟡 = build if time allows, ⏳ = later phase.
 **Endpoints:** `/lessons/:n`, `/lessons/:n/progress`
 **Entities:** `lesson_progress`
 
-## 8. Practice & Answer Evaluation
+## 8. Practice & Answer Evaluation ✅ [DONE]
 | Feature | MVP | Notes |
 |---|---|---|
 | Curated sentence bank, cumulative-vocab-constrained | ✅ | tag-checked, see agents.md §5.3 |

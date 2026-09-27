@@ -1,7 +1,10 @@
 import { db } from "./client";
-import { lessons, kanaChars } from "./schema";
+import { lessons, kanaChars, vocabItems, grammarPatterns, sentenceItems } from "./schema";
 import { LESSON_DATA } from "./seeds/lessons-data";
 import { KANA_DATA } from "./seeds/kana-data";
+import { VOCAB_DATA } from "./seeds/vocab-data";
+import { GRAMMAR_DATA } from "./seeds/grammar-data";
+import { SENTENCE_DATA } from "./seeds/sentence-data";
 import * as dotenv from "dotenv";
 
 dotenv.config({ path: ".env" });
@@ -50,6 +53,53 @@ export async function runSeed() {
     }
   }
   console.log(`✓ Seeded ${KANA_DATA.length} Hiragana characters (Base 46 + Dakuten + Yōon).`);
+
+  // 3. Seed Vocabulary Items (Module 5)
+  for (const vocab of VOCAB_DATA) {
+    const existing = await db.query.vocabItems.findFirst({
+      where: (table, { eq, and }) =>
+        and(eq(table.lessonNumber, vocab.lessonNumber), eq(table.word, vocab.word)),
+    });
+
+    if (!existing) {
+      await db.insert(vocabItems).values(vocab);
+    }
+  }
+  console.log(`✓ Seeded ${VOCAB_DATA.length} original vocabulary items across Lessons 1–5.`);
+
+  // 4. Seed Grammar Patterns (Module 6)
+  for (const pattern of GRAMMAR_DATA) {
+    await db
+      .insert(grammarPatterns)
+      .values(pattern)
+      .onConflictDoUpdate({
+        target: grammarPatterns.patternKey,
+        set: {
+          title: pattern.title,
+          japaneseTitle: pattern.japaneseTitle,
+          formula: pattern.formula,
+          explanation: pattern.explanation,
+          skillTag: pattern.skillTag,
+          examples: pattern.examples,
+          commonMistakes: pattern.commonMistakes,
+          orderIndex: pattern.orderIndex,
+        },
+      });
+  }
+  console.log(`✓ Seeded ${GRAMMAR_DATA.length} original grammar patterns across Lessons 1–5.`);
+
+  // 5. Seed Practice Sentence Bank (Module 8)
+  for (const sentence of SENTENCE_DATA) {
+    const existing = await db.query.sentenceItems.findFirst({
+      where: (table, { eq, and }) =>
+        and(eq(table.lessonNumber, sentence.lessonNumber), eq(table.prompt, sentence.prompt)),
+    });
+
+    if (!existing) {
+      await db.insert(sentenceItems).values(sentence);
+    }
+  }
+  console.log(`✓ Seeded ${SENTENCE_DATA.length} cumulative practice sentence drills.`);
   console.log("✨ Seeding completed successfully!");
 }
 

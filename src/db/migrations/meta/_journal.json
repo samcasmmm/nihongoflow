@@ -15,6 +15,20 @@
       "when": 1790501373724,
       "tag": "0001_solid_golden_guardian",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790502373649,
+      "tag": "0002_pink_vision",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1790502786932,
+      "tag": "0003_brave_mad_thinker",
+      "breakpoints": true
     }
   ]
 }

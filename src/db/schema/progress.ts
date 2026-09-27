@@ -65,6 +65,24 @@ export const activeMissions = pgTable("active_missions", {
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
 });
 
+// Lesson Progress (Module 7 3-Stage Stepper: Vocab -> Grammar -> Practice)
+export const lessonProgress = pgTable("lesson_progress", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  userId: uuid("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  lessonNumber: integer("lesson_number").notNull(),
+  currentStage: text("current_stage").default("vocab").notNull(), // 'vocab' | 'grammar' | 'practice'
+  vocabCompleted: boolean("vocab_completed").default(false).notNull(),
+  grammarCompleted: boolean("grammar_completed").default(false).notNull(),
+  practiceCompleted: boolean("practice_completed").default(false).notNull(),
+  practiceScore: integer("practice_score").default(0).notNull(), // percentage 0..100
+  isCompleted: boolean("is_completed").default(false).notNull(),
+  completedAt: timestamp("completed_at", { withTimezone: true }),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
 export type CardProgress = typeof cardProgress.$inferSelect;
 export type NewCardProgress = typeof cardProgress.$inferInsert;
 export type GamificationState = typeof gamificationState.$inferSelect;
@@ -73,3 +91,5 @@ export type XpEvent = typeof xpEvents.$inferSelect;
 export type NewXpEvent = typeof xpEvents.$inferInsert;
 export type ActiveMission = typeof activeMissions.$inferSelect;
 export type NewActiveMission = typeof activeMissions.$inferInsert;
+export type LessonProgress = typeof lessonProgress.$inferSelect;
+export type NewLessonProgress = typeof lessonProgress.$inferInsert;
