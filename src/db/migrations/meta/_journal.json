@@ -29,6 +29,13 @@
       "when": 1790502786932,
       "tag": "0003_brave_mad_thinker",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1790503357517,
+      "tag": "0004_daily_captain_universe",
+      "breakpoints": true
     }
   ]
 }

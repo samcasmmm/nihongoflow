@@ -43,7 +43,12 @@ export const transformationEvaluator = {
     let errorTag = item.skillTag;
     let feedback = "Not quite. Check your sentence structure and particles.";
 
-    if (normalizedUser.includes("わ") && item.keywordSlots.includes("は")) {
+    if (
+      normalizedUser.includes("わ") &&
+      (item.keywordSlots.includes("は") ||
+        item.promptJapanese?.includes("は") ||
+        item.acceptedAnswers.some((a) => a.includes("は")))
+    ) {
       errorTag = "particle_wa_spelling";
       feedback = "Remember: The topic particle 'wa' must always be written with 'は', not 'わ'.";
     } else if (item.transformationType === "question" && !normalizedUser.endsWith("か")) {

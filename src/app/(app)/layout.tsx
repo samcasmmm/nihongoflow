@@ -36,6 +36,9 @@ export default async function AppShellLayout({ children }: { children: React.Rea
               <Link href='/dashboard' className='px-3 py-1.5 rounded-xl hover:bg-white/5 text-white'>
                 Dashboard
               </Link>
+              <Link href='/cms' className='px-3 py-1.5 rounded-xl hover:bg-white/5 hover:text-[#58cc02] text-[#58cc02] font-bold'>
+                CMS Studio ⚡
+              </Link>
               <Link href='/placement' className='px-3 py-1.5 rounded-xl hover:bg-white/5 hover:text-white'>
                 Placement
               </Link>
