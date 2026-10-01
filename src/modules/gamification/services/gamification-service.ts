@@ -3,6 +3,22 @@ import { gamificationRepository } from "../repositories/gamification-repository"
 export const gamificationService = {
   async getSummary(userId: string) {
     const state = await gamificationRepository.getOrCreateState(userId);
+    if (!state) {
+      return {
+        totalXp: 0,
+        level: 0,
+        levelLabel: "Absolute Beginner",
+        nextLevelXp: 50,
+        levelProgressPercent: 0,
+        currentStreak: 0,
+        longestStreak: 0,
+        streakFreezesAvailable: 1,
+        dailyGoalXp: 10,
+        dailyEarnedXp: 0,
+        dailyGoalMet: false,
+        activeMissions: [],
+      };
+    }
     const dailyEarnedXp = await gamificationRepository.getDailyEarnedXp(userId);
     let missions = await gamificationRepository.getActiveMissions(userId);
 

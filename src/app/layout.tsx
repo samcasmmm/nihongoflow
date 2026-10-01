@@ -24,8 +24,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='en' className={`${baloo.variable} ${inter.variable} h-full antialiased dark`}>
-      <body className='min-h-full flex flex-col font-sans bg-(--bg) text-(--text)'>{children}</body>
+    <html lang='en' className={`${baloo.variable} ${inter.variable} h-full antialiased dark`} suppressHydrationWarning>
+      <body className='min-h-full flex flex-col font-sans bg-(--bg) text-(--text)' suppressHydrationWarning>{children}</body>
     </html>
   );
 }

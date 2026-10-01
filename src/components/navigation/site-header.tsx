@@ -3,8 +3,14 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowRight, Menu, X, BookOpen, Compass, HelpCircle, Shield } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import {
+  ArrowRight,
+  BookOpen,
+  Compass,
+  HelpCircle,
+  Shield,
+  Sparkles,
+} from "lucide-react";
 import type { SessionPayload } from "@/core/auth/session";
 
 interface SiteHeaderProps {
@@ -23,139 +29,207 @@ export function SiteHeader({ session }: SiteHeaderProps) {
   ];
 
   return (
-    <header className="border-b border-white/5 bg-[#0a0a0f]/85 backdrop-blur-md sticky top-0 z-50">
-      <div className="w-full max-w-[92%] lg:max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
-        {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <span className="text-3xl filter drop-shadow-[0_2px_8px_rgba(255,150,0,0.4)] transition-transform group-hover:scale-110 duration-150">
-            🦊
-          </span>
-          <div className="flex flex-col">
-            <span className="text-2xl font-display font-extrabold tracking-tight text-white flex items-center gap-0.5 leading-none">
+    <>
+      {/* Floating Island Nav — detached from top with rounded-full pill design */}
+      <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-5 px-4 pointer-events-none">
+        <nav className="pointer-events-auto w-full max-w-4xl bg-[#08080f]/80 backdrop-blur-2xl border border-white/10 rounded-full px-5 h-14 flex items-center justify-between shadow-[0_16px_40px_-10px_rgba(0,0,0,0.8),inset_0_1px_1px_0_rgba(255,255,255,0.12)]">
+          {/* Brand */}
+          <Link href="/" className="flex items-center gap-2.5 group shrink-0">
+            <span className="text-xl filter drop-shadow-[0_2px_10px_rgba(255,150,0,0.4)] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110">
+              🦊
+            </span>
+            <span className="text-[17px] font-display font-extrabold tracking-tight text-white leading-none">
               Nihongo<span className="text-[#58cc02]">Flow</span>
             </span>
-            <span className="text-[10px] uppercase font-bold tracking-widest text-[#9a9aa8]">
-              Master Japanese Naturally
-            </span>
-          </div>
-        </Link>
+          </Link>
 
-        {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-1 text-sm font-semibold text-[#9a9aa8]">
-          {navLinks.map((link) => {
-            const isActive = pathname === link.href;
-            const Icon = link.icon;
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl transition-colors ${
-                  isActive
-                    ? "text-white bg-white/10"
-                    : "hover:text-white hover:bg-white/5"
-                }`}
-              >
-                <Icon className="w-3.5 h-3.5 opacity-70" />
-                {link.label}
-              </Link>
-            );
-          })}
-        </nav>
-
-        {/* Desktop Action Buttons */}
-        <div className="hidden sm:flex items-center gap-3">
-          {session ? (
-            <Link href="/dashboard">
-              <Button variant="chunky" size="default">
-                Dashboard
-                <ArrowRight className="w-4 h-4 ml-1.5" />
-              </Button>
-            </Link>
-          ) : (
-            <>
-              <Link href="/login">
-                <Button variant="ghost" size="sm" className="text-sm font-semibold text-[#9a9aa8] hover:text-white">
-                  Sign In
-                </Button>
-              </Link>
-              <Link href="/register">
-                <Button variant="chunky" size="default">
-                  Get Started Free 🦊
-                </Button>
-              </Link>
-            </>
-          )}
-        </div>
-
-        {/* Mobile Menu Button */}
-        <div className="flex sm:hidden items-center gap-2">
-          {session && (
-            <Link href="/dashboard">
-              <Button variant="chunky" size="sm" className="text-xs">
-                Dashboard
-              </Button>
-            </Link>
-          )}
-          <button
-            type="button"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-xl text-[#9a9aa8] hover:text-white hover:bg-white/5 transition-colors"
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Drawer Overlay */}
-      {mobileMenuOpen && (
-        <div className="sm:hidden border-b border-white/10 bg-[#0c0c14] px-4 pt-3 pb-6 space-y-3 animate-in fade-in slide-in-from-top-2 duration-150">
-          <div className="flex flex-col space-y-1">
+          {/* Desktop Links */}
+          <div className="hidden md:flex items-center gap-1 text-[13px] font-medium text-[#9a9aa8]">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
-              const Icon = link.icon;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold transition-colors ${
+                  className={`px-3.5 py-1.5 rounded-full transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                     isActive
-                      ? "text-white bg-white/10"
-                      : "text-[#9a9aa8] hover:text-white hover:bg-white/5"
+                      ? "text-white bg-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]"
+                      : "hover:text-white hover:bg-white/[0.05]"
                   }`}
                 >
-                  <Icon className="w-4 h-4" />
                   {link.label}
                 </Link>
               );
             })}
           </div>
 
-          <div className="pt-3 border-t border-white/5 flex flex-col gap-2">
+          {/* Desktop Actions */}
+          <div className="hidden sm:flex items-center gap-3 shrink-0">
             {session ? (
-              <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)}>
-                <Button variant="chunky" size="default" className="w-full">
-                  Go to Dashboard 🦊
-                </Button>
+              <Link href="/dashboard" className="group">
+                <span className="island-btn-primary !py-1.5 !px-4 !text-xs !gap-2">
+                  <span>Dashboard</span>
+                  <span className="island-icon-bubble !w-6 !h-6">
+                    <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.5} />
+                  </span>
+                </span>
               </Link>
             ) : (
               <>
-                <Link href="/register" onClick={() => setMobileMenuOpen(false)}>
-                  <Button variant="chunky" size="default" className="w-full">
-                    Get Started Free 🦊
-                  </Button>
+                <Link
+                  href="/login"
+                  className="text-[13px] font-medium text-[#9a9aa8] hover:text-white transition-colors px-3 py-1.5"
+                >
+                  Sign In
                 </Link>
-                <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
-                  <Button variant="ghost" size="default" className="w-full text-sm font-semibold text-[#9a9aa8]">
-                    Sign In to Existing Account
-                  </Button>
+                <Link href="/register" className="group">
+                  <span className="island-btn-primary !py-1.5 !px-4 !text-xs !gap-2">
+                    <span>Start Free</span>
+                    <span className="island-icon-bubble !w-6 !h-6">
+                      <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.5} />
+                    </span>
+                  </span>
+                </Link>
+              </>
+            )}
+          </div>
+
+          {/* Mobile Hamburger Morph */}
+          <div className="flex sm:hidden items-center gap-2">
+            {session && (
+              <Link
+                href="/dashboard"
+                className="text-xs font-bold text-white px-3 py-1.5 rounded-full bg-white/10"
+              >
+                App
+              </Link>
+            )}
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 rounded-full text-[#9a9aa8] hover:text-white transition-colors focus:outline-none"
+              aria-label="Toggle menu"
+            >
+              <div className="relative w-5 h-5">
+                <span
+                  className={`absolute left-0 h-[2px] w-5 bg-current rounded-full transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                    mobileMenuOpen
+                      ? "top-[9px] rotate-45"
+                      : "top-[3px] rotate-0"
+                  }`}
+                />
+                <span
+                  className={`absolute left-0 top-[9px] h-[2px] w-5 bg-current rounded-full transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                    mobileMenuOpen ? "opacity-0 scale-x-0" : "opacity-100"
+                  }`}
+                />
+                <span
+                  className={`absolute left-0 h-[2px] w-5 bg-current rounded-full transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                    mobileMenuOpen
+                      ? "top-[9px] -rotate-45"
+                      : "top-[15px] rotate-0"
+                  }`}
+                />
+              </div>
+            </button>
+          </div>
+        </nav>
+      </header>
+
+      {/* Mobile Glass Full-Screen Overlay with Staggered Link Reveals */}
+      <div
+        className={`fixed inset-0 z-40 sm:hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          mobileMenuOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="absolute inset-0 bg-[#08080f]/95 backdrop-blur-3xl" />
+        <div className="relative z-10 flex flex-col items-center justify-center h-full gap-3 px-8">
+          <div className="mb-6 text-center">
+            <span className="text-4xl filter drop-shadow-[0_4px_16px_rgba(255,150,0,0.5)]">
+              🦊
+            </span>
+            <div className="text-xl font-display font-extrabold text-white mt-2">
+              Nihongo<span className="text-[#58cc02]">Flow</span>
+            </div>
+            <p className="text-xs text-[#9a9aa8] mt-1">
+              Textbook Loop + SWOT Diagnostics
+            </p>
+          </div>
+
+          {navLinks.map((link, i) => {
+            const isActive = pathname === link.href;
+            const Icon = link.icon;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`flex items-center gap-3 px-6 py-3.5 rounded-full text-base font-medium w-full max-w-xs transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  isActive
+                    ? "text-white bg-white/10 border border-white/10"
+                    : "text-[#9a9aa8] hover:text-white hover:bg-white/[0.05]"
+                } ${
+                  mobileMenuOpen
+                    ? "translate-y-0 opacity-100"
+                    : "translate-y-8 opacity-0"
+                }`}
+                style={{
+                  transitionDelay: mobileMenuOpen ? `${100 + i * 50}ms` : "0ms",
+                }}
+              >
+                <Icon className="w-4 h-4 text-[#58cc02]" strokeWidth={1.5} />
+                <span>{link.label}</span>
+              </Link>
+            );
+          })}
+
+          <div
+            className={`mt-6 flex flex-col gap-3 w-full max-w-xs transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              mobileMenuOpen
+                ? "translate-y-0 opacity-100"
+                : "translate-y-8 opacity-0"
+            }`}
+            style={{
+              transitionDelay: mobileMenuOpen ? "320ms" : "0ms",
+            }}
+          >
+            {session ? (
+              <Link
+                href="/dashboard"
+                onClick={() => setMobileMenuOpen(false)}
+                className="island-btn-primary w-full text-center"
+              >
+                <span>Go to Dashboard</span>
+                <span className="island-icon-bubble">
+                  <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
+                </span>
+              </Link>
+            ) : (
+              <>
+                <Link
+                  href="/register"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="island-btn-primary w-full text-center"
+                >
+                  <span>Start Learning Free</span>
+                  <span className="island-icon-bubble">
+                    <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
+                  </span>
+                </Link>
+                <Link
+                  href="/login"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="island-btn-secondary w-full text-center"
+                >
+                  <span>Sign In</span>
                 </Link>
               </>
             )}
           </div>
         </div>
-      )}
-    </header>
+      </div>
+    </>
   );
 }

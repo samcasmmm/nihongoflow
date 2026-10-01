@@ -1,14 +1,16 @@
 import React from 'react';
 import { redirect } from 'next/navigation';
 import { getSession } from '@/core/auth/session';
+import { userRepository } from '@/modules/auth/repositories/user-repository';
 import Link from 'next/link';
 import { LogOut, Flame, Trophy } from 'lucide-react';
 import { SiteFooter } from '@/components/navigation/site-footer';
 
 export default async function AppShellLayout({ children }: { children: React.ReactNode }) {
   const session = await getSession();
+  const user = session ? await userRepository.findById(session.userId) : null;
 
-  if (!session) {
+  if (!session || !user) {
     redirect('/login');
   }
 

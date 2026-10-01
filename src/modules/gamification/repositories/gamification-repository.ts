@@ -9,18 +9,28 @@ export const gamificationRepository = {
     });
 
     if (!state) {
-      const [created] = await db
-        .insert(gamificationState)
-        .values({
-          userId,
-          totalXp: 0,
-          currentStreak: 0,
-          longestStreak: 0,
-          streakFreezesAvailable: 1,
-          dailyGoalXp: 10,
-        })
-        .returning();
-      state = created;
+      try {
+        const [created] = await db
+          .insert(gamificationState)
+          .values({
+            userId,
+            totalXp: 0,
+            currentStreak: 0,
+            longestStreak: 0,
+            streakFreezesAvailable: 1,
+            dailyGoalXp: 10,
+          })
+          .onConflictDoNothing()
+          .returning();
+        state = created || (await db.query.gamificationState.findFirst({
+          where: (table, { eq }) => eq(table.userId, userId),
+        }));
+      } catch (err) {
+        state = await db.query.gamificationState.findFirst({
+          where: (table, { eq }) => eq(table.userId, userId),
+        });
+        if (!state) throw err;
+      }
     }
 
     return state;

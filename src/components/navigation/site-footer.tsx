@@ -4,7 +4,7 @@ import { ShieldCheck } from 'lucide-react';
 
 export function SiteFooter() {
   return (
-    <footer className='border-t border-white/5 bg-[#08080d] text-[#9a9aa8] text-sm relative mt-20'>
+    <footer className='border-t border-white/5 bg-[#08080d] text-[#9a9aa8] text-sm relative'>
       {/* Top Subtle Accent Gradient */}
       <div className='absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#58cc02]/30 to-transparent' />
 

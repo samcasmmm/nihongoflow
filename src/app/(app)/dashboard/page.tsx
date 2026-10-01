@@ -1,4 +1,5 @@
 import React from "react";
+import { redirect } from "next/navigation";
 import { getSession } from "@/core/auth/session";
 import { userRepository } from "@/modules/auth/repositories/user-repository";
 import { gamificationService } from "@/modules/gamification/services/gamification-service";
@@ -28,36 +29,24 @@ export default async function DashboardPage() {
   const session = await getSession();
   const userId = session?.userId || "";
   const user = session ? await userRepository.findById(userId) : null;
-  const profile = session ? await userRepository.findProfileByUserId(userId) : null;
+
+  if (!session || !user) {
+    redirect("/login");
+  }
+
+  const profile = await userRepository.findProfileByUserId(userId);
 
   const currentLessonNum = profile?.startingLesson || 1;
   const levelLabel = profile?.levelLabel || "Beginner";
 
   // Fetch gamification state, lessons list, and deck stats
-  const summary = session
-    ? await gamificationService.getSummary(userId)
-    : {
-        totalXp: 0,
-        level: 0,
-        levelLabel: "Absolute Beginner",
-        nextLevelXp: 50,
-        levelProgressPercent: 0,
-        currentStreak: 0,
-        longestStreak: 0,
-        streakFreezesAvailable: 1,
-        dailyGoalXp: 10,
-        dailyEarnedXp: 0,
-        dailyGoalMet: false,
-        activeMissions: [],
-      };
+  const summary = await gamificationService.getSummary(userId);
 
   const allLessons = await lessonRepository.findAll();
   const currentLessonData =
     allLessons.find((l) => l.lessonNumber === currentLessonNum) || allLessons[0];
 
-  const deckData = session
-    ? await deckRepository.getHiraganaCards(userId)
-    : { stats: { totalCards: 104, masteredCount: 0, learningCount: 0, unseenCount: 104 } };
+  const deckData = await deckRepository.getHiraganaCards(userId);
 
   return (
     <div className="space-y-10">
